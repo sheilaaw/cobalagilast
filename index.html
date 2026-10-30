@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Porsiku – your meal your way</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="icon" href="./logo porsiku.jpeg">
+<link rel="stylesheet" href="./style.css">
+</head>
+<body data-page="beranda">
+<!-- latar: foto makanan sehat yang berganti-ganti (daftar foto: BG_FOTO di data.js) -->
+<div class="bg" aria-hidden="true"><div class="veil"></div><i class="ring r1"></i><i class="ring r2"></i><i class="blob b1"></i><i class="blob b2"></i></div>
+<!-- separuh atas halaman: foto makanan sehat berganti-ganti; separuh bawah: latar biasa -->
+<div class="fotoband" aria-hidden="true"><div class="slides" id="slides"></div><div class="tint"></div></div>
+
+<header class="nav"><div class="nav-in">
+  <a class="brand" href="#beranda"><img src="./logo porsiku.jpeg" alt="Logo Porsiku"><span>Porsi<b>ku</b></span></a>
+  <nav class="links" aria-label="Navigasi utama">
+    <a href="#beranda" data-p="beranda">Beranda</a>
+    <a href="#gizi" data-p="gizi">Info Gizi</a>
+    <a href="#menu" data-p="menu">Menu</a>
+    <a href="#konsultasi" data-p="konsultasi">Konsultasi</a>
+  </nav>
+  <a class="btn sm" id="navBtn" href="#data">Mulai</a>
+</div></header>
+
+<!-- ============ HALAMAN 1: BERANDA ============ -->
+<main id="beranda" class="view active">
+  <section class="hero"><div class="hero-text">
+    <h1>Your Meal <br>Your Way.</h1>
+    <p>Setiap pilihan makanan adalah langkah kecil menuju dirimu yang lebih sehat. Temukan menu yang sesuai dengan kebutuhanmu dan mulai perjalanan sehatmu bersama Porsiku.</p>
+    <div class="cta"><button class="btn" type="button" onclick="startFlow()">Hitung porsiku</button><a class="btn ghost" href="#menu">Lihat menu sehat</a></div>
+  </div><div class="hero-frame"><img class="hero-logo" src="./logo porsiku.jpeg" alt="Logo Porsiku – Your Meal Your Way"></div></section>
+  <section class="feats">
+    <div class="feat"><b>1</b><h4>Hitung kebutuhanmu</h4><p>Isi data diri, kami hitung IMT, BMR, dan kebutuhan energi harianmu.</p></div>
+    <div class="feat"><b>2</b><h4>Menu ramah alergi</h4><p>Menu yang mengandung alergimu otomatis ditandai merah dan diberi peringatan.</p></div>
+    <div class="feat"><b>3</b><h4>Konsultasi gizi</h4><p>Bahas menu pilihanmu bersama tim Porsiku lewat WhatsApp.</p></div>
+  </section>
+  <div class="bgctl"><div class="dots" id="dots" aria-label="Pilih foto latar"></div><span class="kredit" id="kredit"></span></div>
+  <div class="marquee"><div class="track" id="m1"></div></div>
+</main>
+
+<!-- ============ HALAMAN 2: DATA DIRI ============ -->
+<main id="data" class="view">
+  <form id="form" class="form">
+    <h2>Kenalan dulu yuk</h2>
+    <p class="notice" id="notice" role="alert" hidden></p>
+    <div class="grid">
+      <label>Nama<input name="nama" required placeholder="Nama panggilan"></label>
+      <label>Jenis kelamin
+        <select name="jk"><option value="L">Laki-laki</option><option value="P">Perempuan</option></select></label>
+      <label>Usia (tahun)<input type="number" name="usia" min="2" max="100" required></label>
+      <label>Berat badan (kg)<input type="number" name="bb" min="5" max="250" step="0.1" required></label>
+      <label>Tinggi badan (cm)<input type="number" name="tb" min="60" max="230" step="0.1" required></label>
+    </div>
+    <h3><i class="leaf"></i>Kegiatan sehari-harimu paling mirip yang mana?</h3>
+    <div class="acts" id="acts"></div>
+    <h3><i class="leaf"></i>Alergi makanan <small class="muted">(opsional)</small></h3>
+    <div class="chips" id="alergi"></div>
+    <input id="alergiLain" name="alergiLain" placeholder="Tulis alergi lainnya, pisahkan dengan koma (contoh: udang, jamur)" hidden>
+    <label class="consent"><input type="checkbox" name="setuju" required><span>Saya setuju data di atas (nama, usia, BB, TB, alergi) disimpan admin Porsiku untuk layanan gizi dan konsultasi.</span></label>
+    <button class="btn" type="submit">Lihat informasi gizi</button>
+  </form>
+</main>
+
+<!-- ============ HALAMAN 3: INFORMASI GIZI ============ -->
+<main id="gizi" class="view">
+  <section class="dash-head">
+    <div><span class="eyebrow">Informasi gizimu</span><h2 id="halo"></h2><p class="muted" id="ringkas"></p><div class="alergi-line" id="alergiRingkas"></div></div>
+    <a class="btn sm ghost" href="#data">Ubah data</a>
+  </section>
+  <section class="bento" id="stats"></section>
+
+  <section class="box">
+    <h3><i class="leaf"></i>Tabel acuan</h3>
+    <div class="tabs" id="tabs"></div>
+    <div class="table-wrap"><table id="tabel"></table></div>
+    <p class="muted small" id="catatan"></p>
+  </section>
+
+  <section class="box" id="proteinBox"><h3><i class="leaf"></i>Sumber protein hewani</h3><p class="muted small" id="proteinInfo"></p><div class="pgrid" id="protein"></div></section>
+
+  <section class="box konsul"><div><h3>Sudah tahu kebutuhanmu?</h3><p class="muted">Lihat menu harian yang disesuaikan dengan kebutuhan dan alergimu.</p></div><a class="btn" href="#menu">Lihat menu</a></section>
+</main>
+
+<!-- ============ HALAMAN 4: MENU ============ -->
+<main id="menu" class="view">
+  <section class="page-head"><span class="eyebrow">Menu</span><h2>Menu sehat</h2><p class="muted">Rekomendasi harian dan seluruh resep Porsiku. Menu yang mengandung alergimu ditandai merah.</p></section>
+  <div id="alergiBanner"></div>
+  <h3 class="sec"><i class="leaf"></i>Rekomendasi hari ini</h3>
+  <p class="muted" id="resepInfo"></p>
+  <section class="summary" id="ringkasMenu"></section>
+  <section class="recipes" id="resep"></section>
+
+  <h3 class="sec"><i class="leaf"></i>Semua menu dan resep</h3>
+  <p class="muted">Daftar lengkap menu makan besar dan selingan beserta bahan, URT, berat, dan nilai gizi per 1 porsi dasar.</p>
+  <div class="tabs" id="resepTabs"></div>
+  <section class="recipes wide" id="semuaResep"></section>
+
+  <section class="box konsul"><div><h3>Mau konsultasi dengan tim Porsiku?</h3><p class="muted">Pilih menu yang ingin dibahas, bayar lewat QRIS, unggah bukti bayar, lalu datamu terkirim ke WhatsApp tim Porsiku.</p></div><a class="btn" href="#konsultasi">Konsultasi sekarang</a></section>
+</main>
+
+<!-- ============ HALAMAN 5: KONSULTASI ============ -->
+<main id="konsultasi" class="view">
+  <div class="form konsul-page">
+    <h2>Konsultasi dengan tim Porsiku</h2>
+    <ol class="steps"><li>Pilih menu</li><li>Tulis pertanyaan</li><li>Bayar & unggah bukti</li><li>Kirim ke WhatsApp</li></ol>
+
+    <fieldset class="pick"><legend>Menu yang ingin di-follow up <small class="muted">(opsional)</small></legend><div id="menuPilih"></div></fieldset>
+
+    <label>Keluhan / pertanyaanmu<textarea id="keluhan" rows="3" placeholder="Contoh: saya mau naik berat badan, menu apa yang cocok?"></textarea></label>
+    <div class="qris"><img src="qris.jpeg" alt="QRIS Porsiku"><p id="harga"></p><p class="small muted">Scan pakai aplikasi bank atau e-wallet apa saja.</p></div>
+    <label>Unggah bukti pembayaran<input type="file" id="bukti" accept="image/*"></label>
+    <img id="prev" class="prev" alt="Pratinjau bukti bayar" hidden>
+    <button class="btn" id="waBtn" type="button" disabled onclick="kirimWA()">Kirim ke WhatsApp tim Porsiku</button>
+    <p class="small" id="status" role="status"></p>
+    <a class="btn sm ghost" id="waLink" href="#" target="_blank" rel="noopener" hidden>Buka WhatsApp manual</a>
+    <p class="small muted">Bukti bayar tersimpan otomatis di sistem Porsiku. Pesan WhatsApp berisi datamu dan kode konsultasi, jadi tim kami bisa mencocokkannya. Konsultasi dimulai setelah pembayaran dicek.</p>
+  </div>
+</main>
+
+<footer>© Porsiku · your meal your way · Nilai gizi mengacu pada TKPI 2020.</footer>
+<script src="./data.js"></script>
+<script src="./foto.js?v=2"></script>
+<script src="./script.js"></script>
+</body>
+</html>
